@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <script>
+        d3.csv("employee.csv").then(data => {
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].Name);
+                console.log(data[i].Age);
+            }
+        });
+    </script>
+</body>
+</html>

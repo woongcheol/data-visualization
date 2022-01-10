@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<style>
+    .error {
+        color: green
+    }
+
+    h3{
+        margin-top:50px;
+    }
+
+    div {
+            height: 100px;
+            width: 100px;
+            background-color: steelblue;
+            margin:5px;
+        }
+    
+    #container {
+        height: 100px;
+        width: 100px;
+        background-color: black;
+    }
+
+</style>
+<body>
+    <h3>p태그</h3>
+    <p id="p1">First paragraph</p>
+    <p id="p2">Second paragraph</p>
+    <p class="p3">Third paragraph</p>
+    <p class="p3">Four paragraph</p>
+    <span class="error">Error: This is dummy error.</span>
+ 
+
+    <h3>data binding</h3>
+    <p id="p4"></p>
+    <p id="p4"></p>
+    <p id="p4"></p>
+ 
+    <h3>function</h3>
+    <p id="p5"> Error: This is error.</p>
+    <p id="p5">Warning:This is warning.</p>
+
+    <h3>event handling</h3>
+    <div> </div>
+
+    <script>
+        // p tag
+        d3.select("p").style("color", "blue")
+        d3.select("#p2").style("color", "red")
+        d3.select(".p3").style("color", "green")
+        d3.select(".span").classed('error', true);
+
+        // data binding
+        var data = [100, 200, 300];
+        var paragraph = d3.select("body")
+                .selectAll("#p4")
+                .style("color", "red")
+                .data(data)
+                .style("color", "red")
+                .text(function (d, i) {
+                    console.log("d: " + d);
+                    console.log("i: " + i);
+                    console.log("this: " + this);
+
+                    return d;
+                });
+
+        // function
+        d3.selectAll("#p5").style("color", function(d, i) {
+            var text = this.innerText;
+        
+            if (text.indexOf("Error") >= 0) {
+                return "red";
+            } else if (text.indexOf("Warning") >= 0) {
+                return "yellow";
+            }
+            });
+        
+        // event handling
+        d3.selectAll("div")
+            .on("mouseover", function(){
+                d3.select(this)
+                    .style("background-color", "orange");
+
+                // Get current event info
+                console.log(d3.event);
+                
+                // Get x & y co-ordinates
+                console.log(d3.mouse(this));
+            })
+            .on("mouseout", function(){
+                d3.select(this)
+                    .style("background-color", "steelblue")
+            });
+        
+            //
+    </script>
+</body>
+</html>
